@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Algorithm Visualiser</string>
+    <string name="show_final">Show final list</string>
+    <string name="click">click to Sort</string>
 </resources>

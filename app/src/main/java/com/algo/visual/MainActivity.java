@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.algo.visual.Sorting.BubbleSort;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static int maxWidth;
     private static int maxHeight;
     public static int speed;
+    private AsyncTask task;
     public static boolean sorted = false;
 
     @Override
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         graphSize = 20; // default bar sizes
+        speed = 40;
 
         unsortedColour = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
         sortedColor = ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
@@ -77,9 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     static void setSpeed(){                             // for potential updates on changing sorting speed
 
-    }
-
-    public static void initialiseArray() {              // creating a random array of integers to use as bar sizes
+    }    public static void initialiseArray() {              // creating a random array of integers to use as bar sizes
         data.clear();
         for(int i = 1; i < graphSize; i++){
             int value = random.nextInt(maxHeight);
@@ -113,9 +116,16 @@ public class MainActivity extends AppCompatActivity {
             canvas.drawRect(Rect[i], paint);
         }
 
+        // Invalidate the view, so that it gets redrawn.
+        view.invalidate();
+        if (sorted) {
+            setSpeed();
+            mButton.setText(R.string.click);
+            sorted = false;
+        }
     }
 
-    /*@Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu){      // for a navigation bar menu if implemented
 
     }
@@ -125,6 +135,13 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     public void sort(View view){                            // for accessing the sorting algorithm to sort the bars in the correct pattern
-
+        if(mButton.getText().toString().equals(getString(R.string.show_final))){
+            speed = 0;
+            mButton.setVisibility(View.INVISIBLE);
+        }else {
+            mImageView.setClickable(false);
+            mButton.setText(R.string.show_final);
+            task = new BubbleSort().execute();
+        }
     }
 }
