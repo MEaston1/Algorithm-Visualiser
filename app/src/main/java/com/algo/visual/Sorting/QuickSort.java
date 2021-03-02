@@ -19,6 +19,7 @@ public class QuickSort extends AsyncTask<Void, Void, Void> {
             if(myArray.get(secondIdx) < pivot){
                 firstIdx++;
                 int temp = myArray.get(firstIdx);
+
                 myArray.set(firstIdx, myArray.get(secondIdx));
                 myArray.set(secondIdx, temp);
             }
