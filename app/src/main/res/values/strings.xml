@@ -2,4 +2,22 @@
     <string name="app_name">Algorithm Visualiser</string>
     <string name="show_final">Show final list</string>
     <string name="click">click to Sort</string>
+    <string name="select_algorithm">click to select the algorithm</string>
+    <string-array name="Algorithm">
+        <item>Bubble Sort</item>
+        <item>Insertion Sort</item>
+        <item>Selection Sort</item>
+        <item>Quick Sort</item>
+        <item>Heap Sort</item>
+        <item>Merge Sort</item>
+    </string-array>
+
+    <string-array name="AlgorithmValues">
+        <item>"Bubble Sort"</item>
+        <item>"Insertion Sort"</item>
+        <item>"Selection Sort"</item>
+        <item>"Quick Sort"</item>
+        <item>"Heap Sort"</item>
+        <item>"Merge Sort"</item>
+    </string-array>
 </resources>

@@ -3,7 +3,10 @@ package com.algo.visual;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.preference.PreferenceManager;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,6 +15,7 @@ import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private static int maxHeight;
     public static int speed;
     private AsyncTask task;
+    static SharedPreferences preferences;
+    private static String algorithm;
     public static boolean sorted = false;
 
     @Override
@@ -77,7 +83,16 @@ public class MainActivity extends AppCompatActivity {
                 drawGraph(mImageView);
             }
         });
-
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        algorithm = preferences.getString(AlgorithmSelector.KEY_ALGO, "Heap Sort");
+        mTextViewAlgorithm.setText(algorithm);
+        mImageView.setVisibility(View.INVISIBLE);
+        mButton.setVisibility(View.INVISIBLE);
+        mTextView.setVisibility(View.VISIBLE);
+        if (data.size() != 0) {
+            initialiseArray();
+        }
     }
 
     static void setSpeed(){                             // for potential updates on changing sorting speed
@@ -125,14 +140,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-  /*  @Override
+   @Override
     public boolean onCreateOptionsMenu(Menu menu){      // for a navigation bar menu if implemented
-
+       MenuInflater inflater = new MenuInflater(this);
+       inflater.inflate(R.menu.menu, menu);
+       return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
-
-    }*/
+        if(item.getItemId() == R.id.AlgorithmSelector){
+            if(task!=null){
+                task.cancel(true);
+                task = null;
+            }
+            Intent intent = new Intent(this, AlgorithmSelector.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public void sort(View view){                            // for accessing the sorting algorithm to sort the bars in the correct pattern
         if(mButton.getText().toString().equals(getString(R.string.show_final))){
