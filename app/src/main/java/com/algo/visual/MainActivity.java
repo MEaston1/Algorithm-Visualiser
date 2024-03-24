@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.algo.visual.Sorting.BubbleSort;
+import com.algo.visual.Sorting.HeapSort;
+import com.algo.visual.Sorting.InsertionSort;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -44,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private static int maxWidth;
     private static int maxHeight;
     public static int speed;
-    private AsyncTask task;
     static SharedPreferences preferences;
     private static String algorithm;
     public static boolean sorted = false;
@@ -150,10 +151,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         if(item.getItemId() == R.id.AlgorithmSelector){
-            if(task!=null){
-                task.cancel(true);
-                task = null;
-            }
+            /*if(runner!=null){
+                runner.cancel(true);
+                runner = null;
+            }*/
             Intent intent = new Intent(this, AlgorithmSelector.class);
             startActivity(intent);
         }
@@ -167,7 +168,8 @@ public class MainActivity extends AppCompatActivity {
         }else {
             mImageView.setClickable(false);
             mButton.setText(R.string.show_final);
-            task = new BubbleSort().execute();
+            // Something here to execute
+            new HeapSort().executeHeapSort();
         }
     }
 }
