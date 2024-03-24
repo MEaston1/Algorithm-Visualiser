@@ -1,6 +1,5 @@
 package com.algo.visual.Sorting;
 
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;

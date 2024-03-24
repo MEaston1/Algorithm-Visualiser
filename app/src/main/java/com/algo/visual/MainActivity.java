@@ -7,12 +7,10 @@ import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +23,7 @@ import android.widget.TextView;
 import com.algo.visual.Sorting.BubbleSort;
 import com.algo.visual.Sorting.HeapSort;
 import com.algo.visual.Sorting.InsertionSort;
+import com.algo.visual.Sorting.MergeSort;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -169,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             mImageView.setClickable(false);
             mButton.setText(R.string.show_final);
             // Something here to execute
-            new HeapSort().executeHeapSort();
+            new BubbleSort().executeBubbleSort();
         }
     }
 }
