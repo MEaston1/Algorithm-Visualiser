@@ -12,6 +12,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,6 +31,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "App";
     private static int unsortedColour;
     private static int sortedColor;
     private static Paint paint = new Paint();
@@ -48,13 +50,14 @@ public class MainActivity extends AppCompatActivity {
     static SharedPreferences preferences;
     private static String algorithm;
     public static boolean sorted = false;
+    public static boolean sorting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         graphSize = 20; // default bar sizes
-        speed = 40;
+        speed = 100;
 
         unsortedColour = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
         sortedColor = ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
@@ -69,11 +72,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mButton.setVisibility(view.VISIBLE);
+                sorted = false;
+                sorting = false;
                 initialiseArray();
                 drawGraph(mImageView);
-
             }
         });
+
+
+
         mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +88,18 @@ public class MainActivity extends AppCompatActivity {
                 mTextView.setVisibility(view.INVISIBLE);
                 mButton.setVisibility(view.VISIBLE);
                 drawGraph(mImageView);
+            }
+        });
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(sorted == true){
+                    sorted = false;
+                    initialiseArray();
+                    drawGraph(mImageView);
+                } else if (sorted == false) {
+                    sort(mImageView);
+                }
             }
         });
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
@@ -94,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
             initialiseArray();
         }
     }
+
 
     static void setSpeed(){                             // for potential updates on changing sorting speed
 
@@ -130,13 +150,13 @@ public class MainActivity extends AppCompatActivity {
             Rect[i].set(100 + width * i, (maxHeight + 100) - data.get(i), 100 + width *(i+1), maxHeight + 100);
             canvas.drawRect(Rect[i], paint);
         }
-
         // Invalidate the view, so that it gets redrawn.
         view.invalidate();
-        if (sorted) {
+        if (sorted == true && sorting == false) {
             setSpeed();
-            mButton.setText(R.string.click);
-            sorted = false;
+            mButton.setText(R.string.Reset);
+        } else if (sorted == false && sorting == false) {
+            mButton.setText(R.string.Click);
         }
     }
 
@@ -161,14 +181,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sort(View view){                            // for accessing the sorting algorithm to sort the bars in the correct pattern
+        int temp = speed;
         if(mButton.getText().toString().equals(getString(R.string.show_final))){
             speed = 0;
             mButton.setVisibility(View.INVISIBLE);
+            sorted = true;
+            sorting = false;
         }else {
             mImageView.setClickable(false);
             mButton.setText(R.string.show_final);
-            // Something here to execute
-            new BubbleSort().executeBubbleSort();
         }
+        sorting = true;
+        new BubbleSort().executeBubbleSort(temp);
     }
 }

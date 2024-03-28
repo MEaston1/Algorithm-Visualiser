@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Algorithm Visualiser</string>
     <string name="show_final">Show final list</string>
-    <string name="click">click to Sort</string>
+    <string name="Reset">click to Reset</string>
+    <string name="Click">click to Sort</string>
     <string name="select_algorithm">click to select the algorithm</string>
     <string-array name="Algorithm">
         <item>Bubble Sort</item>

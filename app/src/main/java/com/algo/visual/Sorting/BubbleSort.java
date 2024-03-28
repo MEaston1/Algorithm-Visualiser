@@ -5,17 +5,19 @@ import java.util.concurrent.Executors;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.algo.visual.MainActivity;
 
 public class BubbleSort {
 
+    private static final String TAG = "Sort";
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
     private Handler handler = new Handler(Looper.getMainLooper());
     private long lastUpdate = 0; // Track when the last UI update was posted
     private final long UPDATE_THRESHOLD = 100; // Minimum time (ms) between updates
 
-    public void executeBubbleSort() {
+    public void executeBubbleSort(int speed) {
         executorService.submit(() -> {
 
             int size = MainActivity.data.size();
@@ -41,6 +43,8 @@ public class BubbleSort {
             }
             handler.post(() -> {                            // onPostExecute replacement
                 MainActivity.sorted = true;
+                MainActivity.sorting = false;
+                MainActivity.speed = speed;
                 MainActivity.drawGraph(MainActivity.mImageView);
                 MainActivity.mImageView.setClickable(true);
             });

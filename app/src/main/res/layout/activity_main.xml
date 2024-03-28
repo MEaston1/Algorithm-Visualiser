@@ -48,7 +48,6 @@
         android:layout_height="wrap_content"
         android:text="Click"
         android:layout_margin="16dp"
-        android:onClick="sort"
         android:fontFamily="monospace"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
