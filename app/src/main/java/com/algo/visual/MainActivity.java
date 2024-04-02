@@ -25,6 +25,7 @@ import com.algo.visual.Sorting.BubbleSort;
 import com.algo.visual.Sorting.HeapSort;
 import com.algo.visual.Sorting.InsertionSort;
 import com.algo.visual.Sorting.MergeSort;
+import com.algo.visual.Sorting.QuickSort;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -192,6 +193,6 @@ public class MainActivity extends AppCompatActivity {
             mButton.setText(R.string.show_final);
         }
         sorting = true;
-        new BubbleSort().executeBubbleSort(temp);
+        new QuickSort().executeQuickSort(temp);
     }
 }

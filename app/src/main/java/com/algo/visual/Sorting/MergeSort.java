@@ -29,7 +29,7 @@ public class MergeSort {
         });
     }
 
-    void merge(ArrayList<Integer> myArray, int left, int middle, int right){
+    public void merge(ArrayList<Integer> myArray, int left, int middle, int right){
         int sizeOne = middle - left + 1;
         int sizeTwo = right - middle;
 
