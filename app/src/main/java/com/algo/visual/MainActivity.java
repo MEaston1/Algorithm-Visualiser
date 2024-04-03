@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         });
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        algorithm = preferences.getString(AlgorithmSelector.KEY_ALGO, "Heap Sort");
+        algorithm = preferences.getString(AlgorithmSelector.SelectedAlgo, "Bubble Sort");
         mTextViewAlgorithm.setText(algorithm);
         mImageView.setVisibility(View.INVISIBLE);
         mButton.setVisibility(View.INVISIBLE);
@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
             mButton.setText(R.string.show_final);
         }
         sorting = true;
+
         new QuickSort().executeQuickSort(temp);
     }
 }

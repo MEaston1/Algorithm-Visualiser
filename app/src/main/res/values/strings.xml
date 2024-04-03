@@ -7,7 +7,6 @@
     <string-array name="Algorithm">
         <item>Bubble Sort</item>
         <item>Insertion Sort</item>
-        <item>Selection Sort</item>
         <item>Quick Sort</item>
         <item>Heap Sort</item>
         <item>Merge Sort</item>
